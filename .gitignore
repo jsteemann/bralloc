@@ -22,11 +22,19 @@ autom4te.cache/*
 .deps/*
 .libs/*
 
+aclocal.m4
+config/*
+config.compile
 config.guess
 config.log
 config.status
 config.sub
-Makefile
+configure
+depcomp
+install-sh
 libtool
+Makefile
+Makefile.in
+missing
 
 core
