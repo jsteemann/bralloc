@@ -39,7 +39,10 @@ DIST_COMMON = $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(top_srcdir)/configure config.guess \
 	config.sub depcomp install-sh ltmain.sh missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
+	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
+	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
@@ -123,8 +126,12 @@ CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2 -Wextra -Wshadow -Wno-unused-parameter
 CPP = gcc -E
 CPPFLAGS = 
+CXX = g++
+CXXCPP = g++ -E
+CXXDEPMODE = depmode=gcc3
+CXXFLAGS = -g -O2 -Wextra -Wno-unused-parameter
 CYGPATH_W = echo
-DEFS = -DPACKAGE_NAME=\"bralloc\" -DPACKAGE_TARNAME=\"bralloc\" -DPACKAGE_VERSION=\"0.1\" -DPACKAGE_STRING=\"bralloc\ 0.1\" -DPACKAGE_BUGREPORT=\"jan.steemann@googlemail.com\" -DPACKAGE_URL=\"https://github.com/jsteemann/bralloc\" -DPACKAGE=\"bralloc\" -DVERSION=\"0.1\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\".libs/\" -DSTDC_HEADERS=1 -DHAVE_MALLOC_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_STDLIB_H=1 -DHAVE_REALLOC=1
+DEFS = -DPACKAGE_NAME=\"bralloc\" -DPACKAGE_TARNAME=\"bralloc\" -DPACKAGE_VERSION=\"0.1\" -DPACKAGE_STRING=\"bralloc\ 0.1\" -DPACKAGE_BUGREPORT=\"jan.steemann@googlemail.com\" -DPACKAGE_URL=\"https://github.com/jsteemann/bralloc\" -DPACKAGE=\"bralloc\" -DVERSION=\"0.1\" -DSTDC_HEADERS=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_UNISTD_H=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\".libs/\" -DSTDC_HEADERS=1 -DHAVE_MALLOC_H=1 -DHAVE_STDLIB_H=1 -DHAVE_SYS_TIME_H=1 -DHAVE_UNISTD_H=1 -DHAVE_STDLIB_H=1 -DHAVE_MALLOC=1 -DHAVE_STDLIB_H=1 -DHAVE_REALLOC=1 -DHAVE_GETTIMEOFDAY=1 -DHAVE_STRTOULL=1
 DEPDIR = .deps
 DLLTOOL = false
 DSYMUTIL = 
@@ -166,6 +173,7 @@ PACKAGE_TARNAME = bralloc
 PACKAGE_URL = https://github.com/jsteemann/bralloc
 PACKAGE_VERSION = 0.1
 PATH_SEPARATOR = :
+POW_LIB = 
 RANLIB = ranlib
 SED = /bin/sed
 SET_MAKE = 
@@ -178,6 +186,7 @@ abs_top_builddir = /home/steemann/bralloc
 abs_top_srcdir = /home/steemann/bralloc
 ac_ct_AR = ar
 ac_ct_CC = gcc
+ac_ct_CXX = g++
 ac_ct_DUMPBIN = 
 am__include = include
 am__leading_dot = .

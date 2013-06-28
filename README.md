@@ -62,12 +62,10 @@ Run `mysql` with a failure probability of 20% after 60 second startup delay:
 caveats
 =======
 
-bralloc uses the libc malloc wrappers, which have been marked as *deprecated*. However it may still work.
+bralloc uses the libc malloc wrappers, which have been marked as *deprecated*. However it may still work and be helpful for testing your program's behavior in the face of low or out-of-memory situations.
 
-bralloc doesn't care about thread-safety and might itself lead to issues. Still it may be helpful for testing your program's behavior in the face of low or out-of-memory situations.
+Concurrent accesses to the malloc wrappers are serialized using a pthread mutex. Execution of programs under bralloc might thus be a bit slower than usual.
 
-It probably won't work together with other memory subsystem interceptors or wrappers.
-
-Seems to work on Ubuntu, but the status on other platforms is unknown. For sure it doesn't work on Windows.
+It probably won't work together with other memory subsystem interceptors or wrappers. It seems to work on Ubuntu, but the status on other platforms is unknown. For sure it doesn't work on Windows.
 
 :squirrel:

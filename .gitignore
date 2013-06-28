@@ -22,7 +22,9 @@ autom4te.cache/*
 .deps/*
 .libs/*
 
+# autoconf
 aclocal.m4
+autoscan.log
 config/*
 config.compile
 config.guess
@@ -30,6 +32,7 @@ config.log
 config.status
 config.sub
 configure
+configure.scan
 depcomp
 install-sh
 libtool
