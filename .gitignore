@@ -4,6 +4,8 @@
 # Libraries
 *.lib
 *.a
+*.la
+*.lo
 
 # Shared objects (inc. Windows DLLs)
 *.dll
@@ -15,3 +17,14 @@
 *.exe
 *.out
 *.app
+
+autom4te.cache/*
+.deps/*
+.libs/*
+
+config.guess
+config.log
+config.status
+config.sub
+Makefile
+libtool
