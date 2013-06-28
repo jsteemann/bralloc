@@ -14,6 +14,7 @@
 static void* (*oldMalloc) (size_t, const void*);
 static void* (*oldRealloc) (void*, size_t, const void*);
 
+static double failDelay;
 static double failProbability;
 static double failStartStamp;
 
@@ -47,6 +48,7 @@ static int mustFail (void) {
 static void* myMalloc (size_t n, const void* x) {
   void* ptr;
 
+  printf("MALLOC\n");
   if (mustFail()) {
     return NULL;
   } 
@@ -64,6 +66,7 @@ static void* myMalloc (size_t n, const void* x) {
 static void* myRealloc (void* old, size_t n, const void* x) {
   void* ptr;
 
+  printf("REALLOC\n");
   if (mustFail()) {
     return NULL;
   } 
@@ -91,27 +94,36 @@ static void myInit (void) {
   srand(getpid() * 32452843 + time(NULL) * 49979687);
  
   // get failure probability 
-  failProbability = 1.0;
+  failProbability = 0.1;
   value           = getenv(NAME_PROBABILITY);
 
   if (value != NULL) {
-    double v = strtod(value, NULL);
+    double v      = strtod(value, NULL);
 
     if (v >= 0.0 && v <= 1.0) {
       failProbability = v;
     }
   }
 
+  failDelay      = 0.0;
   failStartStamp = 0.0;
   value          = getenv(NAME_DELAY);
 
   if (value != NULL) {
-    double v = strtod(value, NULL);
+    double v     = strtod(value, NULL);
 
     if (v > 0.0) {
-      failStartStamp = currentTimeStamp() + v;
+      failDelay      = v;
+      failStartStamp = currentTimeStamp() + failDelay;
     }
   }
+
+  fprintf(stderr,
+          "WARNING: program was started with bralloc wrapper. "
+          "failure probability: %f %%, "
+          "failure delay: %f s\n", 
+          100.0 * failProbability, 
+          failDelay);
 }
 
 #ifdef __MALLOC_HOOK_VOLATILE
