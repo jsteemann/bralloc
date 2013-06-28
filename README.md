@@ -37,8 +37,9 @@ When invoked, it wraps calls to the system's *malloc* and *realloc* functions wi
 
 bralloc will decide in its wrappers whether it will return a NULL pointer (intentionally fail to allocate new memory) or pass the memory allocation request to the actual system allocator.
 
-At what time and at which frequency there will be intentional allocation failures is controllable by two environment variables:
+At what time and at which frequency there will be intentional allocation failures is controllable by the environment variables:
 * `BRALLOC_DELAY`: the startup delay (in seconds) after which the first intentional failure will occur. The default value is 0.0.
+* `BRALLOC_MINIMUM`: the minimum byte size that intentional failures are triggered for. mallocs/reallocs operations with smaller sizes will be directed to the standard allocators.
 * `BRALLOC_PROBABILITY`: the probability (in range 0...1) at which failures occur after the startup delay. The default value is 0.01 (1%).
 
 bralloc wraps calls to *malloc* and *realloc*. This should include calls to *calloc*. Calls to *free* are not wrapped and are processed normally.
@@ -49,6 +50,10 @@ examples
 Run `ls -alh` but fail at every 20th memory allocation request (5% failure probability):
 
     BRALLOC_DELAY=0 BRALLOC_PROBABILITY=0.05 LD_PRELOAD=.libs/libbralloc.so ls -alh
+
+Run `curl` with a failure probability of 50% for every malloc allocation >= 4096 bytes:
+
+    BRALLOC_PROBABILITY=0.5 BRALLOC_MINIMUM=4096 LD_PRELOAD=/usr/lib/libbralloc.so curl -X GET https://github.com 
 
 Run `mysql` with a failure probability of 20% after 60 second startup delay:
 
