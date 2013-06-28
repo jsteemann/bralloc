@@ -48,7 +48,6 @@ static int mustFail (void) {
 static void* myMalloc (size_t n, const void* x) {
   void* ptr;
 
-  printf("MALLOC\n");
   if (mustFail()) {
     return NULL;
   } 
@@ -66,7 +65,6 @@ static void* myMalloc (size_t n, const void* x) {
 static void* myRealloc (void* old, size_t n, const void* x) {
   void* ptr;
 
-  printf("REALLOC\n");
   if (mustFail()) {
     return NULL;
   } 
@@ -83,6 +81,7 @@ static void* myRealloc (void* old, size_t n, const void* x) {
 
 static void myInit (void) {
   char* value;
+  pid_t pid;
 
   oldMalloc      = __malloc_hook;
   oldRealloc     = __realloc_hook;
@@ -90,8 +89,10 @@ static void myInit (void) {
   __malloc_hook  = myMalloc;
   __realloc_hook = myRealloc;
  
-  // seed random generator 
-  srand(getpid() * 32452843 + time(NULL) * 49979687);
+  pid            = getpid();
+
+  // seed random generator
+  srand(pid * 32452843 + time(NULL) * 49979687);
  
   // get failure probability 
   failProbability = 0.1;
@@ -119,9 +120,12 @@ static void myInit (void) {
   }
 
   fprintf(stderr,
-          "WARNING: program was started with bralloc wrapper. "
-          "failure probability: %f %%, "
-          "failure delay: %f s\n", 
+          "WARNING: program execution with bralloc wrapper.\n"
+          "================================================\n"
+          "process id:          %llu\n"
+          "failure probability: %0.3f %%\n"
+          "failure delay:       %0.1f s\n\n",
+          (unsigned long long) pid,
           100.0 * failProbability, 
           failDelay);
 }
