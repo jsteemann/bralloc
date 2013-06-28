@@ -1,7 +1,9 @@
 bralloc
 =======
 
-an intentionally failing malloc wrapper, useful for checking programs in low or out-of-memory situations
+an intentionally failing malloc wrapper, useful for checking programs in low or out-of-memory situations.
+
+bralloc is inspired by [failmalloc](http://www.nongnu.org/failmalloc/), which I found to be not working in the environment I tried to use it in. 
 
 building bralloc
 ================
