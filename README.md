@@ -5,6 +5,8 @@ an intentionally failing malloc wrapper, useful for checking programs in low or 
 
 bralloc is inspired by [failmalloc](http://www.nongnu.org/failmalloc/), which I found to be not working in the environment I tried to use it in. 
 
+bralloc should not be confused with [brmalloc](https://github.com/bharath23/brmalloc), which is a "real" memory allocator.
+
 building bralloc
 ================
 
@@ -25,6 +27,7 @@ You may also want to install the shared object but this is not required:
     sudo make install
 
 The shared object is going to be installed in a system-dependent place, probably `/usr/lib/`, `/usr/local/lib/`, `/usr/lib64/` etc.
+In the below examples, I'll use different paths. Adjust them as needed in your environment.
 
 usage
 =====
