@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <malloc.h>
 #include <pthread.h>
 #include <stdlib.h>
@@ -69,10 +70,12 @@ static void* myMalloc (size_t n, const void* x) {
   pthread_mutex_lock(&lock);
   __malloc_hook   = oldMalloc;
 
-  if (mustFail(n)) {
+  if (n > 0 && mustFail(n)) {
     oldMalloc     = __malloc_hook;   
     __malloc_hook = myMalloc;
   
+    // indicate error
+    errno         = ENOMEM;
     pthread_mutex_unlock(&lock);
 
     return NULL;
@@ -95,10 +98,12 @@ static void* myRealloc (void* old, size_t n, const void* x) {
   pthread_mutex_lock(&lock);
   __realloc_hook   = oldRealloc;
 
-  if (mustFail(n)) {
+  if (n > 0 && mustFail(n)) {
     oldMalloc      = __malloc_hook;   
     __malloc_hook  = myMalloc;
   
+    // indicate error
+    errno          = ENOMEM;
     pthread_mutex_unlock(&lock);
 
     return NULL;
