@@ -26,7 +26,7 @@ static double failStartStamp;
 pthread_mutex_t lock;
 
 
-static double currentTimeStamp () {
+static double currentTimeStamp (void) {
   struct timeval tv;
 
   gettimeofday(&tv, 0);
